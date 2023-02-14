@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import ColorBox from './colorBox.jsx'
+import './palette.css'
 
 export default function Palette({palette}) {
     useEffect(() => { 
