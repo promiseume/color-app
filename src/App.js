@@ -5,7 +5,7 @@ function App() {
   console.log(ChangeColorChange(seedColor[3]));
   return (
     <div className="App">
-      <Palette palette={seedColor[3]}/>
+      <Palette palette={ChangeColorChange(seedColor[3])}/>
       </div>
   );
 }
