@@ -4,9 +4,12 @@ import './navbar.css'
 import Slider from 'rc-slider';
 import { Select } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
+import Snackbar from '@mui/material/Snackbar';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function Navbar({level, handleLevelChange,handleColorFormat}) {
     const [format, setFormat] = useState('hex');
+    const [open, setOpen] = useState(false);
     const handleFormatChange =(e)=>{
         setFormat(e.target.value);
         handleColorFormat(e.target.value);
