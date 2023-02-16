@@ -5,14 +5,18 @@ import Navbar from './navbar.js';
 
 export default function Palette({palette}) {
   const [level, setLevel] = useState(500);
+  const [format, setFormat] = useState('hex');
   const handleLevelChange =(level)=>{
     setLevel(()=>level);
   }
+  const handleColorFormat =(value)=>{
+    setFormat(()=>value);
+  }
   return (
     <div className='Palette'>
-     <Navbar level={level} handleLevelChange={handleLevelChange}/>
+     <Navbar level={level} handleLevelChange={handleLevelChange} handleColorFormat={handleColorFormat}/>
        <div className='Palette-color'>
-        {palette.colors[level].map(color => <ColorBox backgroundcolor={color.hex} name={color.name} />)}
+        {palette.colors[level].map(color => <ColorBox backgroundcolor={color[format]} name={color.name} />)}
        </div>
     </div>
   )
