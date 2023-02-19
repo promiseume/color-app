@@ -7,6 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import {Link} from 'react-router-dom'
 
 export default function Navbar({level, handleLevelChange,handleColorFormat}) {
     const [format, setFormat] = useState('hex');
@@ -23,12 +24,12 @@ export default function Navbar({level, handleLevelChange,handleColorFormat}) {
   return (
     <nav className='navbar'>
         <div className='logo'>
-            <a href='/'>React Color Picker</a>
+            <Link to='/'>React Color Picker</Link>
         </div>
         <div className='slider-container'>
             <span>Level: {level}</span>
             <div className='slider'>
-        <Slider defaultValue={level} min={100} max={900} step={100} onAfterChange={handleLevelChange} step={100}/>
+        <Slider defaultValue={level} min={100} max={900} onAfterChange={handleLevelChange} step={100}/>
         </div>
         </div>
         <div className='select-container'>
