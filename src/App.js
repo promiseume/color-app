@@ -1,17 +1,14 @@
-import Palette from './Palette.jsx'
-import {seedColor} from './seedColor.js'
-import {ChangeColorChange} from './colorConverter.js';
-import {Routes, Route} from "react-router-dom";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import PaletteWrapper from "./paletteWrapper.jsx";
 function App() {
-  console.log(ChangeColorChange(seedColor[3]));
   return (
     <div className="App">
       <Routes>
-      <Route exact path='/'element={<Palette palette={ChangeColorChange(seedColor[3])}/>}></Route>
-      {/* <Route exact path='/palette/:id'></Route> */}
+        <Route exact path="/" element={<h1>hii</h1>}></Route>
+        <Route path="/palette/:id" element={<PaletteWrapper/>}></Route>
       </Routes>
-      {/* <Palette palette={ChangeColorChange(seedColor[3])}/> */}
-      </div>
+    </div>
   );
 }
 
