@@ -8,10 +8,11 @@ const styles = {
     height: "100%",
     display: "flex",
     alignItems: "flex-start",
-    justifyContent: "center"
+    justifyContent: "center",
+   padding:'5px'
   },
   container: {
-   width: "50%",
+   width: "80%",
    display: "flex",
     alignItems: "flex-start",
     flexDirection: "column",
@@ -20,8 +21,8 @@ const styles = {
   nav: {
   display: "flex",
   width: "100%",
+  color: "white",
   justifyContent: "space-between",
-  color: "white"
   },
   palettes: {
   boxSizing: "border-box",
