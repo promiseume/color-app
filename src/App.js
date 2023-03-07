@@ -3,13 +3,22 @@ import { Routes, Route } from "react-router-dom";
 import PaletteWrapper from "./paletteWrapper.jsx";
 import { seedColor } from "./seedColor.js";
 import PaletteList from "./PaletteList.jsx";
+import SingleWrapper from "./singleWrapper.jsx";
+
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route exact path="/" element={<PaletteList palettes={seedColor}/>}></Route>
-        <Route path="/palette/:id" element={<PaletteWrapper/>}></Route>
-        <Route path="/palette/:paletteId/:colorId" element={<h1>hii</h1>}></Route>
+        <Route
+          exact
+          path="/"
+          element={<PaletteList palettes={seedColor} />}
+        ></Route>
+        <Route path="/palette/:id" element={<PaletteWrapper />}></Route>
+        <Route
+          path="/palette/:id/:colorId"
+          element={<SingleWrapper />}
+        ></Route>
       </Routes>
     </div>
   );

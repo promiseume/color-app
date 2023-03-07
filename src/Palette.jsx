@@ -25,6 +25,9 @@ export default function Palette({ palette }) {
             backgroundcolor={color[format]}
             name={color.name}
             key={color.id}
+            id={color.id}
+            paletteId={palette.id}
+            showLink={true}
           />
         ))}
       </div>
