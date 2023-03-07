@@ -18,6 +18,7 @@ export default function Palette({ palette }) {
         level={level}
         handleLevelChange={handleLevelChange}
         handleColorFormat={handleColorFormat}
+        isSingleColor={false}
       />
       <div className="Palette-color">
         {palette.colors[level].map((color) => (

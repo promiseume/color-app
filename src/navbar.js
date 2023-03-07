@@ -13,6 +13,7 @@ export default function Navbar({
   level,
   handleLevelChange,
   handleColorFormat,
+  isSingleColor
 }) {
   const [format, setFormat] = useState("hex");
   const [open, setOpen] = useState(false);
@@ -30,6 +31,7 @@ export default function Navbar({
       <div className="logo">
         <Link to="/">React Color Picker</Link>
       </div>
+      {!isSingleColor && (
       <div className="slider-container">
         <span className="slider-level">Level: {level}</span>
         <div className="slider">
@@ -41,7 +43,8 @@ export default function Navbar({
             step={100}
           />
         </div>
-      </div>
+      </div>)
+}
       <div className="select-container">
         <Select value={format} onChange={handleFormatChange}>
           <MenuItem value="hex">Hex : #fffff</MenuItem>
