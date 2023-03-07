@@ -31,7 +31,7 @@ export default function Navbar({
         <Link to="/">React Color Picker</Link>
       </div>
       <div className="slider-container">
-        <span>Level: {level}</span>
+        <span className="slider-level">Level: {level}</span>
         <div className="slider">
           <Slider
             defaultValue={level}
