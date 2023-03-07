@@ -32,6 +32,12 @@
   border: none;
   margin-bottom: -3.5px;
 }
+.light-text {
+  color: white;
+}
+.dark-text {
+  color: rgba(0, 0, 0, 0.5);
+}
 .copy-button {
   opacity: 0;
 }
