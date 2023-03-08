@@ -3,38 +3,64 @@ import "./colorBox.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Link } from "react-router-dom";
 import chroma from "chroma-js";
+import { withStyles } from "@material-ui/styles";
 
-export default function ColorBox({ backgroundcolor, name, id,paletteId,showLink }) {
+const styles = {
+  copyText:{
+    color: props => chroma(props.backgroundcolor).luminance() >= 0.7 ? 'black' : 'white'
+  },
+  colorName: {
+    color: props => chroma(props.backgroundcolor).luminance() <= 0.08 ? 'white' : 'black'
+  },
+  seeMore:{
+    color: props => chroma(props.backgroundcolor).luminance() >= 0.7 ? 'rgba(0,0,0,0.6)' : 'white',
+    background: "rgba(255, 255, 255, 0.3)",
+  position: "absolute",
+  border: "none",
+  right: "0",
+  bottom: "0",
+  color: "white",
+  width: "60px",
+  height: "30px",
+  textAlign: "center",
+  lineHeight: "30px"
+  }
+
+}
+function ColorBox(props) {
+  const { classes } = props;
   const [copied, setCopied] = useState(false);
   const changeCopyState = () => {
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   };
-  const isDarkColor = chroma(backgroundcolor).luminance() <= 0.08;
-  const isLightColor = chroma(backgroundcolor).luminance() >= 0.7;
+  const isDarkColor = chroma(props.backgroundcolor).luminance() <= 0.08;
+  const isLightColor = chroma(props.backgroundcolor).luminance() >= 0.7;
   return (
-    <CopyToClipboard text={backgroundcolor} onCopy={changeCopyState}>
-      <div style={{ background: backgroundcolor }} className="ColorBox">
+    <CopyToClipboard text={props.backgroundcolor} onCopy={changeCopyState}>
+      <div style={{ background: props.backgroundcolor }} className="ColorBox">
         <div
-          style={{ background: backgroundcolor }}
+          style={{ background: props.backgroundcolor }}
           className={`copy-overlay ${copied && "show"}`}
         />
         <div className={`copy-msg ${copied && "show"}`}>
           <h1>Copied!</h1>
-          <p className={isLightColor && 'dark-text'}>{backgroundcolor}</p>
+          <p className={classes.copyText}>{props.backgroundcolor}</p>
         </div>
         <div className="copy-container">
           <div className="box-container">
-            <span className={isDarkColor && 'light-text'}>{name}</span>
+            <span className={classes.colorName}>{props.name}</span>
           </div>
           <button className={`copy-button ${isLightColor && 'dark-text'}`}>Copy</button>
         </div>
-        {showLink &&
-        <Link to={`/palette/${paletteId}/${id}`} onClick={(e) => e.stopPropagation()}>
-          <span className={`see-more ${isLightColor && 'dark-text'}`}>More</span>
+        {props.showLink &&
+        <Link to={`/palette/${props.paletteId}/${props.id}`} onClick={(e) => e.stopPropagation()}>
+          <span className={classes.seeMore}>More</span>
         </Link>
 }
       </div>
     </CopyToClipboard>
   );
 }
+
+export default withStyles(styles) (ColorBox);
