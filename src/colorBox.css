@@ -1,11 +1,11 @@
-.ColorBox {
+/* .ColorBox {
   width: 20%;
   height: 25%;
   display: inline-block;
   cursor: pointer;
   margin: 0 auto;
   position: relative;
-}
+} */
 .SinglePalette .ColorBox {
   height: 50%;
 }
@@ -32,15 +32,7 @@
   border: none;
   margin-bottom: -3.5px;
 }
-.light-text {
-  color: white;
-}
-.dark-text {
-  color: rgba(0, 0, 0, 0.5);
-}
-.copy-button {
-  opacity: 0;
-}
+
 .ColorBox:hover .copy-button {
   opacity: 1;
   transition: 0.5sec;

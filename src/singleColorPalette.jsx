@@ -32,8 +32,9 @@ export default function SingleColor({ palette, colorId }) {
             name={color.name}
             key={color.name}
             id={color.id}
-            showLink={false}
+            showfullColor={false}
             paletteId={palette.id}
+            height={"50%"}
           />
         ))}
         <div className="go-back ColorBox">

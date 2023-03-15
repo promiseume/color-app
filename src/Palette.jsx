@@ -28,7 +28,8 @@ export default function Palette({ palette }) {
             key={color.id}
             id={color.id}
             paletteId={palette.id}
-            showLink={true}
+            showfullColor={true}
+            height={"25%"}
           />
         ))}
       </div>
