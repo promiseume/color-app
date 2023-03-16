@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import "./colorBox.css";
 import ColorBox from "./colorBox.jsx";
 import Navbar from "./navbar.js";
 import PaletteFooter from "./paletteFooter.jsx";
 import { useNavigate } from "react-router-dom";
+import { withStyles } from "@material-ui/styles";
+import styles from "./styles/singleColorStyles.js";
 
-export default function SingleColor({ palette, colorId }) {
+ function SingleColor(props) {
+  const { classes, palette, colorId } = props;
   const [format, setFormat] = useState("hex");
   const navigate = useNavigate();
 
@@ -23,9 +25,9 @@ export default function SingleColor({ palette, colorId }) {
     setFormat(() => value);
   };
   return (
-    <div className="SinglePalette Palette">
+    <div className={classes.Palette}>
       <Navbar handleColorFormat={handleColorFormat} isSingleColor={true} />
-      <div className="Palette-color">
+      <div className={classes.PaletteColor}>
         {handleShade(palette, colorId).map((color) => (
           <ColorBox
             backgroundcolor={color[format]}
@@ -37,11 +39,12 @@ export default function SingleColor({ palette, colorId }) {
             height={"50%"}
           />
         ))}
-        <div className="go-back ColorBox">
-          <button className="back-button" onClick={() => navigate(-1)}>Go Back</button>
+        <div className={classes.goBack}>
+          <button className={classes.backButton} onClick={() => navigate(-1)}>Go Back</button>
         </div>
       </div>
       <PaletteFooter palette={palette} />
     </div>
   );
 }
+export default withStyles(styles) (SingleColor);
