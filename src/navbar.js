@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "rc-slider/assets/index.css";
-import "./navbar.css";
 import Slider from "rc-slider";
 import { Select } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
@@ -8,13 +7,11 @@ import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
+import styles from "./styles/navStyle";
+import { withStyles } from "@material-ui/styles";
 
-export default function Navbar({
-  level,
-  handleLevelChange,
-  handleColorFormat,
-  isSingleColor
-}) {
+ function Navbar(props) {
+  const { level,handleLevelChange, handleColorFormat, isSingleColor, classes } = props;
   const [format, setFormat] = useState("hex");
   const [open, setOpen] = useState(false);
   const handleFormatChange = (e) => {
@@ -27,14 +24,14 @@ export default function Navbar({
   };
 
   return (
-    <nav className="navbar">
-      <div className="logo">
+    <nav className={classes.navbar}>
+      <div className={classes.logo}>
         <Link to="/">React Color Picker</Link>
       </div>
       {!isSingleColor && (
-      <div className="slider-container">
-        <span className="slider-level">Level: {level}</span>
-        <div className="slider">
+      <div className={classes.sliderContainer}>
+        <span className={classes.sliderLevel}>Level: {level}</span>
+        <div className={classes.slider}>
           <Slider
             defaultValue={level}
             min={100}
@@ -45,7 +42,7 @@ export default function Navbar({
         </div>
       </div>)
 }
-      <div className="select-container">
+      <div className={classes.selectContainer}>
         <Select value={format} onChange={handleFormatChange}>
           <MenuItem value="hex">Hex : #fffff</MenuItem>
           <MenuItem value="rgb">RGB : (255,255,255) </MenuItem>
@@ -77,3 +74,4 @@ export default function Navbar({
     </nav>
   );
 }
+export default withStyles(styles) (Navbar);

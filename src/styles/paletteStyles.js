@@ -18,6 +18,9 @@ export default {
         textDecoration:"none",
         color: "black"
       }
-  }
-  
+  },
+  emoji: {
+    marginLeft: "0.5rem",
+    fontSize: "1.5rem",
+  },
   }

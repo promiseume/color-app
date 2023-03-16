@@ -38,7 +38,7 @@ import styles from "./styles/paletteStyles.js";
       </div>
       <footer className={classes.PaletteFooter}>
         {props.palette.paletteName}
-        <span className="emoji">{props.palette.emoji}</span>
+        <span className={classes.emoji}>{props.palette.emoji}</span>
       </footer>
     </div>
   );
