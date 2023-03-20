@@ -19,7 +19,6 @@ export default {
     color: "white",
     alignItems: "center",
     justifyContent: "space-between",
-    color: "white",
     "& a": {
     color: "white",
     },

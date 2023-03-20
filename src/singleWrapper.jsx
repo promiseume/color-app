@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import Palette from "./Palette.jsx";
+import React from "react";
 import { useParams } from "react-router-dom";
 import SingleColorPalette from "./singleColorPalette.jsx";
 import { seedColor } from "./seedColor.js";

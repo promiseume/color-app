@@ -35,7 +35,6 @@ export default {
       border: "none",
       right: "0",
       bottom: "0",
-      color: "white",
       width: "60px",
       height: "30px",
       textAlign: "center",
