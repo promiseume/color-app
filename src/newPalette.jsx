@@ -1,28 +1,29 @@
-import React,{useState} from 'react';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import Button from '@material-ui/core/Button';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { ChromePicker } from 'react-color';
-import DraggableColorList from './draggableColorBox';
+import React, { useState,useEffect } from "react";
+import clsx from "clsx";
+import { makeStyles } from "@material-ui/core/styles";
+import Drawer from "@material-ui/core/Drawer";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import Divider from "@material-ui/core/Divider";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import Button from "@material-ui/core/Button";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import { ChromePicker } from "react-color";
+import DraggableColorList from "./draggableColorBox";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 const drawerWidth = 400;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+    display: "flex",
   },
   appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   hide: {
-    display: 'none',
+    display: "none",
   },
   drawer: {
     width: drawerWidth,
@@ -49,25 +50,25 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
   },
   drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
   },
   content: {
     flexGrow: 1,
-    height: 'calc(100vh - 64px)',
+    height: "calc(100vh - 64px)",
     padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: -drawerWidth,
   },
   contentShift: {
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -79,12 +80,24 @@ export default function NewPalette() {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
-  const [currentColor, setCurrentColor] = useState('teal');
-  const [colors, setColors] = useState(['purple', '#e15764']);
-  
+  const [currentColor, setCurrentColor] = useState("teal");
+  const [colors, setColors] = useState([]);
+  const [newColorName, setNewColorName] = useState("");
+
+  useEffect(() => {
+    ValidatorForm.addValidationRule("isColorNameUnique", (value) =>
+      colors.every(
+        ({ name }) => name.toLowerCase() !== value.toLowerCase()
+      )
+    );
+    ValidatorForm.addValidationRule("isColorUnique", (value) =>
+      colors.every(({ color }) => color !== currentColor)
+    );
+  });
+
+
   const updateCurrentColor = (newColor) => {
-    console.log(newColor)
-     setCurrentColor(newColor.hex);
+    setCurrentColor(newColor.hex);
   };
 
   const handleDrawerOpen = () => {
@@ -94,9 +107,14 @@ export default function NewPalette() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-const addNewColor = () => {
-  setColors([...colors, currentColor]);
-};
+  const addNewColor = () => {
+    const newColors = { color: currentColor, name: newColorName };
+    setColors([...colors, newColors]);
+    setNewColorName("");
+  };
+  const handleChange = (evt) => {
+    setNewColorName(evt.target.value);
+  };
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -136,15 +154,35 @@ const addNewColor = () => {
           </IconButton>
         </div>
         <Divider />
-        <Typography variant="h4">
-          Design Your Own Palette
-        </Typography>
+        <Typography variant="h4">Design Your Own Palette</Typography>
         <div>
-        <Button variant="contained" color="secondary">Clear Palette</Button>
-        <Button variant="contained" color="primary">Random Color</Button>
+          <Button variant="contained" color="secondary">
+            Clear Palette
+          </Button>
+          <Button variant="contained" color="primary">
+            Random Color
+          </Button>
         </div>
-        <ChromePicker color={currentColor} onChangeComplete={updateCurrentColor}/>
-        <Button variant="contained" color="primary" style={{backgroundColor: currentColor}} onClick={addNewColor}>Add Color</Button>
+        <ChromePicker
+          color={currentColor}
+          onChangeComplete={updateCurrentColor}
+        />
+        <ValidatorForm onSubmit={addNewColor}>
+          <TextValidator
+            value={newColorName}
+            onChange={handleChange}
+            validators={["required", "isColorNameUnique", "isColorUnique"]}
+            errorMessages={["this field is required", "color name must be unique", "color already used"]}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            style={{ backgroundColor: currentColor }}
+            type="submit"
+          >
+            Add Color
+          </Button>
+        </ValidatorForm>
       </Drawer>
       <main
         className={clsx(classes.content, {
@@ -152,9 +190,9 @@ const addNewColor = () => {
         })}
       >
         <div className={classes.drawerHeader} />
-      {colors.map(color =>
-      <DraggableColorList color={color} />
-      )}
+        {colors.map((color) => (
+          <DraggableColorList color={color.color} name={color.name} />
+        ))}
       </main>
     </div>
   );
