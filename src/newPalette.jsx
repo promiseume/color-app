@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -15,6 +15,7 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { ChromePicker } from "react-color";
 import DraggableColorList from "./draggableColorBox";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import { Navigate, useNavigate } from "react-router";
 
 const drawerWidth = 400;
 
@@ -76,26 +77,40 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NewPalette() {
+export default function NewPalette({ savePalette }) {
   const classes = useStyles();
-
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [currentColor, setCurrentColor] = useState("teal");
   const [colors, setColors] = useState([]);
   const [newColorName, setNewColorName] = useState("");
+  const [newPaletteName, setNewPaletteName] = useState("");
 
   useEffect(() => {
     ValidatorForm.addValidationRule("isColorNameUnique", (value) =>
-      colors.every(
-        ({ name }) => name.toLowerCase() !== value.toLowerCase()
-      )
+      colors.every(({ name }) => name.toLowerCase() !== value.toLowerCase())
     );
     ValidatorForm.addValidationRule("isColorUnique", (value) =>
       colors.every(({ color }) => color !== currentColor)
     );
   });
 
+  const saveColors = () => {
+    // let newPaletteName = "New Palette";
+    const newPalette = {
+      paletteName: "New Palette",
+      id: newPaletteName.toLowerCase().replace(/ /g, "-"),
+      emoji: "🎨",
+      colors: colors,
+    };
+    savePalette(newPalette);
+    console.log(newPalette);
+    navigate("/");
+  };
 
+  const handlePaletteNameChange = (evt) => {
+    setNewPaletteName(evt.target.value);
+  };
   const updateCurrentColor = (newColor) => {
     setCurrentColor(newColor.hex);
   };
@@ -120,6 +135,7 @@ export default function NewPalette() {
       <CssBaseline />
       <AppBar
         position="fixed"
+        color="default"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
@@ -137,6 +153,16 @@ export default function NewPalette() {
           <Typography variant="h6" noWrap>
             Persistent drawer
           </Typography>
+          <ValidatorForm onSubmit={saveColors}>
+            <TextValidator
+              value={newPaletteName}
+              label={"Enter palette name"}
+              onChange={handlePaletteNameChange}
+            />
+            <Button variant="contained" color="primary">
+              Save Palette
+            </Button>
+          </ValidatorForm>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -172,7 +198,11 @@ export default function NewPalette() {
             value={newColorName}
             onChange={handleChange}
             validators={["required", "isColorNameUnique", "isColorUnique"]}
-            errorMessages={["this field is required", "color name must be unique", "color already used"]}
+            errorMessages={[
+              "this field is required",
+              "color name must be unique",
+              "color already used",
+            ]}
           />
           <Button
             variant="contained"

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { Routes, Route } from "react-router-dom";
 import PaletteWrapper from "./paletteWrapper.jsx";
 import { seedColor } from "./seedColor.js";
@@ -7,19 +7,23 @@ import NewPalette from "./newPalette";
 import SingleWrapper from "./singleWrapper.jsx";
 
 function App() {
+  const [palettes, setPalettes] = useState(seedColor);
+  const savePalette = (newPalette) => {
+    setPalettes([...palettes, newPalette]);
+  };
   return (
     <div className="App">
       <Routes>
         <Route
           exact
           path="/"
-          element={<PaletteList palettes={seedColor} />}
+          element={<PaletteList palettes={palettes} />}
         ></Route>
-        <Route path="/palette/:id" element={<PaletteWrapper />}></Route>
-        <Route path='palette/new' element={<NewPalette/>}></Route>
+        <Route path="/palette/:id" element={<PaletteWrapper palettes={palettes}/>}></Route>
+        <Route path='palette/new' element={<NewPalette savePalette={savePalette}/>}></Route>
         <Route
           path="/palette/:id/:colorId"
-          element={<SingleWrapper />}
+          element={<SingleWrapper palettes={palettes}/>}
         ></Route>
       </Routes>
     </div>

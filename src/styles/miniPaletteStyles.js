@@ -6,6 +6,7 @@ export default {
       padding: "0.5rem",
       position: "relative",
       overflow: "hidden",
+      cursor: "pointer",
       "&:hover": {
         cursor: "pointer",
       },
@@ -21,7 +22,7 @@ export default {
       justifyContent: "space-between",
       alignItems: "center",
       color: "black",
-      paddingTop: "0.5rem",
+      padding: "13px 0",
       fontSize: "1rem",
       position: "relative",
     },

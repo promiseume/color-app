@@ -1,7 +1,9 @@
 export default {
     root: {
       backgroundColor: "blue",
-      height: "100vh",
+      margin: "0",
+      padding: "0",
+      minHeight: "100vh",
       display: "flex",
       alignItems: "flex-start",
       justifyContent: "center",
@@ -28,6 +30,7 @@ export default {
     width: "100%",
     display: "grid",
     gridTemplateColumns: "repeat(3, 30%)",
-    gridGap: "5%"
+    gridGap: "5%",
+    margin:"10px"
     }
   }
