@@ -20,7 +20,7 @@ function App() {
           element={<PaletteList palettes={palettes} />}
         ></Route>
         <Route path="/palette/:id" element={<PaletteWrapper palettes={palettes}/>}></Route>
-        <Route path='palette/new' element={<NewPalette savePalette={savePalette}/>}></Route>
+        <Route path='palette/new' element={<NewPalette savePalette={savePalette} palettes={palettes}/>}></Route>
         <Route
           path="/palette/:id/:colorId"
           element={<SingleWrapper palettes={palettes}/>}

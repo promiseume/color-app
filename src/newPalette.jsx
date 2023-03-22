@@ -93,12 +93,14 @@ export default function NewPalette({ savePalette }) {
     ValidatorForm.addValidationRule("isColorUnique", (value) =>
       colors.every(({ color }) => color !== currentColor)
     );
+    ValidatorForm.addValidationRule("isPaletteNameUnique", (value) =>
+      palettes.every(({ paletteName }) => paletteName !== value)
+    );
   });
 
   const saveColors = () => {
-    // let newPaletteName = "New Palette";
     const newPalette = {
-      paletteName: "New Palette",
+      paletteName: newPaletteName,
       id: newPaletteName.toLowerCase().replace(/ /g, "-"),
       emoji: "🎨",
       colors: colors,
@@ -158,8 +160,10 @@ export default function NewPalette({ savePalette }) {
               value={newPaletteName}
               label={"Enter palette name"}
               onChange={handlePaletteNameChange}
+              validators={["required", "isPaletteNameUnique"]}
+              errorMessages={["Enter palette name", "Name already used"]}
             />
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" type="submit">
               Save Palette
             </Button>
           </ValidatorForm>
