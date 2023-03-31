@@ -11,11 +11,10 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Button from "@material-ui/core/Button";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { ChromePicker } from "react-color";
-import DraggableColorList from "./draggableColorBox";
+import DraggableColorBox from "./draggableColorBox";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 const drawerWidth = 400;
 
@@ -77,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NewPalette({ savePalette }) {
+export default function NewPalette({ savePalette, palettes }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -110,6 +109,10 @@ export default function NewPalette({ savePalette }) {
     navigate("/");
   };
 
+  const handleDeleteColor = (colorName) => {
+    setColors(colors.filter((color) => color.name !== colorName));
+    console.log("clicked");
+  };
   const handlePaletteNameChange = (evt) => {
     setNewPaletteName(evt.target.value);
   };
@@ -225,7 +228,12 @@ export default function NewPalette({ savePalette }) {
       >
         <div className={classes.drawerHeader} />
         {colors.map((color) => (
-          <DraggableColorList color={color.color} name={color.name} />
+          <DraggableColorBox
+            key={color.name}
+            color={color.color}
+            name={color.name}
+            handleDeleteColor={() => handleDeleteColor(color.name)}
+          />
         ))}
       </main>
     </div>
