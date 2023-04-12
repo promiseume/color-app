@@ -127,7 +127,20 @@ export default function NewPalette({ savePalette, palettes }) {
   const handleDrawerOpen = () => {
     setOpen(true);
   };
- 
+ const addRandomColor = () => {
+    const allColors = palettes.map((p) => p.colors).flat();
+    let rand;
+    let randomColor;
+    let isDuplicateColor = true;
+    while (isDuplicateColor) {
+      rand = Math.floor(Math.random() * allColors.length);
+      randomColor = allColors[rand];
+      isDuplicateColor = colors.some(
+        (color) => color.name === randomColor.name
+      );
+    }
+    setColors([...colors, randomColor]);
+  };
   const clearPallette = () => {
     setColors([]);
   };
@@ -199,7 +212,7 @@ export default function NewPalette({ savePalette, palettes }) {
           <Button variant="contained" color="secondary" onClick={clearPallette}>
             Clear Palette
           </Button>
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" onClick={addRandomColor}>
             Random Color
           </Button>
         </div>
