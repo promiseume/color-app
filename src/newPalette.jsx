@@ -127,7 +127,10 @@ export default function NewPalette({ savePalette, palettes }) {
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-
+ 
+  const clearPallette = () => {
+    setColors([]);
+  };
   const handleDrawerClose = () => {
     setOpen(false);
   };
@@ -193,7 +196,7 @@ export default function NewPalette({ savePalette, palettes }) {
         <Divider />
         <Typography variant="h4">Design Your Own Palette</Typography>
         <div>
-          <Button variant="contained" color="secondary">
+          <Button variant="contained" color="secondary" onClick={clearPallette}>
             Clear Palette
           </Button>
           <Button variant="contained" color="primary">
