@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -14,7 +14,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { ChromePicker } from "react-color";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import DraggableColorList from "./draggableColorList";
-import { arrayMove } from "react-sortable-hoc";
+import { arrayMoveImmutable } from "array-move";
 import { useNavigate } from "react-router";
 
 const drawerWidth = 400;
@@ -82,7 +82,7 @@ export default function NewPalette({ savePalette, palettes }) {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [currentColor, setCurrentColor] = useState("teal");
-  const [colors, setColors] = useState([]);
+  const [colors, setColors] = useState(palettes[0].colors);
   const [newColorName, setNewColorName] = useState("");
   const [newPaletteName, setNewPaletteName] = useState("");
 
@@ -109,14 +109,14 @@ export default function NewPalette({ savePalette, palettes }) {
     console.log(newPalette);
     navigate("/");
   };
-  
+
   const onSortEnd = ({ oldIndex, newIndex }) => {
-    setColors((colors) => arrayMove(colors, oldIndex, newIndex));
+    setColors((colors) => arrayMoveImmutable(colors, oldIndex, newIndex));
   };
   const handleDeleteColor = (colorName) => {
     setColors(colors.filter((color) => color.name !== colorName));
-    console.log("clicked");
   };
+
   const handlePaletteNameChange = (evt) => {
     setNewPaletteName(evt.target.value);
   };
@@ -233,7 +233,7 @@ export default function NewPalette({ savePalette, palettes }) {
         <div className={classes.drawerHeader} />
         <DraggableColorList
           colors={colors}
-          handleDeleteColor={handleDeleteColor}
+          handleDeleteColor={()=>handleDeleteColor}
           axis={"xy"}
           onSortEnd={onSortEnd}
         />
