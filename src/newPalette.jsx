@@ -233,7 +233,8 @@ export default function NewPalette({ savePalette, palettes }) {
         <div className={classes.drawerHeader} />
         <DraggableColorList
           colors={colors}
-          handleDeleteColor={()=>handleDeleteColor}
+          handleDeleteColor={handleDeleteColor}
+          setColors={setColors}
           axis={"xy"}
           onSortEnd={onSortEnd}
         />

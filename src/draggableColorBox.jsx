@@ -45,8 +45,9 @@ const DraggableColorBox = SortableElement(
       <div className={classes.root} style={{ backgroundColor: color }}>
         <div className={classes.boxContent}>
           <span> {name}</span>
-          <button onClick={handleDeleteColor(color.name)}>
-            <DeleteIcon className={classes.deleteIcon} />
+          <button onClick={handleDeleteColor}>
+            {/* <DeleteIcon className={classes.deleteIcon} /> */}
+            hi
           </button>
         </div>
       </div>
