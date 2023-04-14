@@ -29,6 +29,8 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    display: "flex",
+    alignItems: "center",
   },
   drawerHeader: {
     display: "flex",
@@ -55,6 +57,20 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
+  container: {
+    width: "90%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
+  },
+  buttons: {
+    width: "100%",
+  },
+  button: {
+    width: "50%",
+  },
 }));
 
 export default function NewPalette({ savePalette, palettes }) {
@@ -76,7 +92,7 @@ export default function NewPalette({ savePalette, palettes }) {
     ValidatorForm.addValidationRule("isPaletteNameUnique", (value) =>
       palettes.every(({ paletteName }) => paletteName !== value)
     );
-  });
+  },[colors,currentColor,palettes]);
 
   const saveColors = () => {
     const newPalette = {
@@ -161,9 +177,10 @@ export default function NewPalette({ savePalette, palettes }) {
           </IconButton>
         </div>
         <Divider />
-        <Typography variant="h4">Design Your Own Palette</Typography>
-        <div>
-          <Button variant="contained" color="secondary" onClick={clearPallette}>
+        <div className={classes.container}>
+        <Typography variant="h5" gutterBottom>Design Your Own Palette</Typography>
+        <div className={classes.buttons}>
+          <Button variant="contained" color="secondary" onClick={clearPallette} className={classes.button}>
             Clear Palette
           </Button>
           <Button
@@ -171,6 +188,7 @@ export default function NewPalette({ savePalette, palettes }) {
             color="primary"
             onClick={addRandomColor}
             disabled={isPaletteFull}
+            className={classes.button}
           >
             Random Color
           </Button>
@@ -183,6 +201,7 @@ export default function NewPalette({ savePalette, palettes }) {
           handleChange={handleChange}
           isPaletteFull={isPaletteFull}
         />
+        </div>
       </Drawer>
       <main
         className={clsx(classes.content, {
