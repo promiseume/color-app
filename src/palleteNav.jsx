@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Button from "@material-ui/core/Button";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import PalletteModalForm from "./palletteModalForm";
 const drawerWidth = 400;
 const useStyles = makeStyles((theme) => ({
     root:{
@@ -79,18 +79,7 @@ export default function PalleteNav({
           </Typography>
         </Toolbar>
         <div className={classes.navBtn}>
-          <ValidatorForm onSubmit={saveColors}>
-            <TextValidator
-              value={newPaletteName}
-              label={"Enter palette name"}
-              onChange={handlePaletteNameChange}
-              validators={["required", "isPaletteNameUnique"]}
-              errorMessages={["Enter palette name", "Name already used"]}
-            />
-            <Button variant="contained" color="primary" type="submit">
-              Save Palette
-            </Button>
-          </ValidatorForm>
+        <PalletteModalForm saveColors={saveColors} newPaletteName={newPaletteName} handlePaletteNameChange={handlePaletteNameChange}/>
           <Button variant="contained" color="secondary" onClick={goBack}>
               Go Back
             </Button>
