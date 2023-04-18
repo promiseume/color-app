@@ -130,7 +130,7 @@ export default function NewPalette({ savePalette, palettes }) {
     let isDuplicateColor = true;
     while (isDuplicateColor) {
       rand = Math.floor(Math.random() * allColors.length);
-      randomColor = allColors[rand];
+      let randomColor = allColors[rand];
       isDuplicateColor = colors.some(
         (color) => color.name === randomColor.name
       );

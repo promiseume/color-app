@@ -1,7 +1,5 @@
 import React from "react";
 import { withStyles } from "@material-ui/styles";
-import DeleteIcon from "@mui/icons-material/Delete";
-import {IconButton} from '@material-ui/core'
 import { SortableElement } from "react-sortable-hoc";
 
 const styles = {
