@@ -21,7 +21,7 @@ function PaletteList({palettes, classes}) {
         </nav>
         <div className={classes.palettes}>
         {palettes.map(palette =>(
-        <MiniPalette {...palette} handlePaletteClick={() => handlePaletteClick(palette.id)}/>
+        <MiniPalette key={palette.id} {...palette} handlePaletteClick={() => handlePaletteClick(palette.id)}/>
     ))}
         </div>
       </div>

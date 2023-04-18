@@ -112,7 +112,6 @@ export default function PalleteNav({
           newPaletteName={newPaletteName}
           handlePaletteNameChange={handlePaletteNameChange}
           handleModalClose={handleModalClose}
-          openModal={openModal}
         />
       )}
     </div>

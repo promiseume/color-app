@@ -94,15 +94,10 @@ export default function NewPalette({ savePalette, palettes }) {
     );
   },[colors,currentColor,palettes]);
 
-  const saveColors = () => {
-    const newPalette = {
-      paletteName: newPaletteName,
-      id: newPaletteName.toLowerCase().replace(/ /g, "-"),
-      emoji: "🎨",
-      colors: colors,
-    };
+  const saveColors = (newPalette) => {
+    newPalette.id = newPaletteName.toLowerCase().replace(/ /g, "-");
+    newPalette.colors = colors
     savePalette(newPalette);
-    console.log(newPalette);
     navigate("/");
   };
 
