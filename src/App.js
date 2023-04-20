@@ -21,13 +21,17 @@ function App() {
   const savePalette = (newPalette) => {
     setPalettes([...palettes, newPalette]);
   };
+  const deletePalette = (id) => {
+    setPalettes(palettes.filter((palette) => palette.id !== id));
+    
+  };
   return (
     <div className="App">
       <Routes>
         <Route
           exact
           path="/"
-          element={<PaletteList palettes={palettes} />}
+          element={<PaletteList palettes={palettes} deletePalette={deletePalette}/>}
         ></Route>
         <Route path="/palette/:id" element={<PaletteWrapper palettes={palettes}/>}></Route>
         <Route path='palette/new' element={<NewPalette savePalette={savePalette} palettes={palettes}/>}></Route>
