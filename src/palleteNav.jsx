@@ -1,47 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
+import AddToPhotosIcon from "@material-ui/icons/AddToPhotos";
 import Button from "@material-ui/core/Button";
 import PalletteModalForm from "./palletteModalForm";
-const drawerWidth = 400;
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
-  appBar: {
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems:"center"
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  navBtn: {
-    marginRight: "1rem",
-  },
-  button: {
-    margin: "0 0.5rem",
-  },
-}));
+import useStyles from "./styles/paletteNavStyles";
 
 export default function PalleteNav({
   open,
@@ -57,9 +25,9 @@ export default function PalleteNav({
   const handleModalOpen = () => {
     setOpenModal(true);
   };
-   const handleModalClose =() =>{
+  const handleModalClose = () => {
     setOpenModal(false);
-   }
+  };
   const goBack = () => {
     navigate(-1);
   };
@@ -75,15 +43,17 @@ export default function PalleteNav({
         })}
       >
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
-          >
-            <MenuIcon />
-          </IconButton>
+          {!open && (
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              className={clsx(classes.menuButton, open && classes.hide)}
+            >
+              <AddToPhotosIcon />
+            </IconButton>
+          )}
           <Typography variant="h6" noWrap>
             Persistent drawer
           </Typography>
