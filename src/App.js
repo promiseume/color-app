@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import { Routes, Route } from "react-router-dom";
 import PaletteWrapper from "./paletteWrapper.jsx";
 import { seedColor } from "./seedColor.js";
@@ -8,6 +8,16 @@ import SingleWrapper from "./singleWrapper.jsx";
 
 function App() {
   const [palettes, setPalettes] = useState(seedColor);
+  const savedPalettes = JSON.parse(localStorage.getItem("palettes"));
+  useEffect(() => {
+    localStorage.setItem("palettes", JSON.stringify(palettes));
+  }, [palettes]);
+
+  useEffect(() => {
+    if (savedPalettes) {
+      setPalettes(savedPalettes);
+    }
+  }, []);
   const savePalette = (newPalette) => {
     setPalettes([...palettes, newPalette]);
   };
