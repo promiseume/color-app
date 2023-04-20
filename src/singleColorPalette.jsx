@@ -36,7 +36,7 @@ import styles from "./styles/singleColorStyles.js";
             id={color.id}
             showfullColor={false}
             paletteId={palette.id}
-            height={"50%"}
+            // height={"50%"}
           />
         ))}
         <div className={classes.goBack}>

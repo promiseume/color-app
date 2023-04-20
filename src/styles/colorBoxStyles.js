@@ -1,4 +1,5 @@
 import chroma from "chroma-js";
+import sizes from "./sizes";
 export default {
     ColorBox:{
       height: props => (props.showfullColor ? "25%" : "50%"),
@@ -10,6 +11,18 @@ export default {
       position: "relative",
       "&:hover button":{
         opacity: "1"
+      },
+      [sizes.down("lg")]:{
+        width: "25%",
+        height: props => (props.showfullColor ? "20%" : "33.3333%")
+      },
+      [sizes.down("md")]:{
+        width: "50%",
+        height: props => (props.showfullColor ? "10%" : "20%")
+      },
+      [sizes.down("xs")]:{
+        width: "100%",
+        height: props => (props.showfullColor ? "5%" : "10%")
       }
     },
     boxContainer :{
@@ -96,8 +109,10 @@ export default {
         textAlign: "center",
         marginBottom: "0",
         padding: "1rem",
-        textTransform: "uppercase"
-  
+        textTransform: "uppercase",
+       [sizes.down("xs")]:{
+        fontSize: "5rem"
+       }
       },
       "& p":{
         fontSize: "2rem",
